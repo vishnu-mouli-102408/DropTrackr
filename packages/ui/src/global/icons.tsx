@@ -1,6 +1,25 @@
 import { LucideProps } from "lucide-react";
 
 export const Icons = {
+	logo: (props: LucideProps) => (
+		<svg width="32" height="32" viewBox="0 0 32 32" className="text-[#34a85a]" {...props}>
+			<defs>
+				<linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+					<stop offset="0%" stopColor="#34a85a" />
+					<stop offset="50%" stopColor="#2a8648" />
+					<stop offset="100%" stopColor="#34a85a" />
+				</linearGradient>
+			</defs>
+			{/* Main geometric shape */}
+			<path d="M4 8 L16 4 L28 8 L28 20 L16 28 L4 20 Z" fill="url(#logoGradient)" opacity="0.9" />
+			{/* Inner craft symbol */}
+			<path d="M12 12 L20 12 L18 20 L14 20 Z" fill="white" opacity="0.9" />
+			<circle cx="16" cy="10" r="2" fill="white" opacity="0.9" />
+			{/* Craft lines */}
+			<line x1="10" y1="16" x2="22" y2="16" stroke="white" strokeWidth="1" opacity="0.7" />
+			<line x1="12" y1="19" x2="20" y2="19" stroke="white" strokeWidth="1" opacity="0.7" />
+		</svg>
+	),
 	github: (props: LucideProps) => (
 		<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
 			<path
@@ -36,6 +55,29 @@ export const Icons = {
 			<path
 				d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
 				fill="#EB4335"
+			/>
+		</svg>
+	),
+	twitter: (props: LucideProps) => (
+		<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1227" fill="none" viewBox="0 0 1200 1227" {...props}>
+			<path
+				fill="#fff"
+				d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
+			/>
+		</svg>
+	),
+	linkedin: (props: LucideProps) => (
+		<svg
+			width="256"
+			height="256"
+			xmlns="http://www.w3.org/2000/svg"
+			preserveAspectRatio="xMidYMid"
+			viewBox="0 0 256 256"
+			{...props}
+		>
+			<path
+				d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
+				fill="#0A66C2"
 			/>
 		</svg>
 	),
