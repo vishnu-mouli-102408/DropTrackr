@@ -1,3 +1,3 @@
 export default function Home() {
-	return <div>Checkgs</div>;
+	return <div>check two</div>;
 }
