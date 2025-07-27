@@ -25,7 +25,8 @@ model User {
   image          String?
   sessions       Session[]
   accounts       Account[]
-
+  outputImages   OutputImages[]
+  models         Model[]
   @@index([email])
   @@map("user")
 }
@@ -91,6 +92,7 @@ model Model {
   eyeColor       EyeColorEnum
   bald           Boolean
   userId         String
+  user           User                  @relation(fields: [userId], references: [id])
   triggerWord    String?
   tensorPath     String?
   thumbnail      String?
@@ -101,7 +103,6 @@ model Model {
   falAiRequestId String?
   zipUrl         String
   open           Boolean                 @default(false)
-
   @@index([falAiRequestId])
 }
 
@@ -116,6 +117,7 @@ model OutputImages {
   imageUrl       String                @default("")
   modelId        String
   userId         String
+  user           User                  @relation(fields: [userId], references: [id])
   prompt         String
   falAiRequestId String?
   status         OutputImageStatusEnum @default(Pending)
