@@ -1,3 +1,6 @@
-import { authClient } from "@repo/common";
+import { createAuthClient } from "better-auth/react";
 
-export { authClient };
+type AuthClient = ReturnType<typeof createAuthClient>;
+export const authClient: AuthClient = createAuthClient({
+	baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080",
+});

@@ -1,17 +1,38 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import React from "react";
+"use client";
 
-export default async function AuthLayout({ children }: { children: React.ReactNode }) {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+import React, { useEffect } from "react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@repo/ui/global/spinner";
 
-	if (session) {
-		const returnTo = (await headers()).get("referer") || "/dashboard";
-		redirect(returnTo);
-	}
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
+	const router = useRouter();
+	const { data: session, isPending } = authClient.useSession();
+
+	useEffect(() => {
+		if (!isPending && session) {
+			let returnTo = "/dashboard";
+			if (typeof window !== "undefined") {
+				const ref = document.referrer;
+				if (ref && ref.startsWith(window.location.origin)) {
+					try {
+						const url = new URL(ref);
+						returnTo = `${url.pathname}${url.search}${url.hash}` || returnTo;
+					} catch {
+						returnTo = "/dashboard";
+					}
+				}
+			}
+			router.replace(returnTo);
+		}
+	}, [isPending, session, router]);
+
+	if (isPending || session)
+		return (
+			<div className="flex h-screen w-screen items-center justify-center">
+				<Spinner variant="circle-filled" />
+			</div>
+		);
 
 	return <>{children}</>;
 }

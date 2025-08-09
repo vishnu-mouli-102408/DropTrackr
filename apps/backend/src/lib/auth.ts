@@ -3,16 +3,19 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "@repo/db";
 import { nextCookies } from "better-auth/next-js";
 import dotenv from "dotenv";
+import { logger } from "@repo/common";
 
 dotenv.config();
 
+logger.info({ secret: process.env.BETTER_AUTH_SECRET }, "BETTER_AUTH_SECRET");
+
 export const auth = betterAuth({
 	secret: process.env.BETTER_AUTH_SECRET as string,
-	trustedOrigins: ["http://localhost:3000", "http://localhost:8080"],
+	trustedOrigins: ["http://localhost:3000"],
 	database: prismaAdapter(prisma, {
 		provider: "postgresql",
 	}),
-	baseURL: "http://localhost:8080",
+	// baseURL: process.env.BETTER_AUTH_URL || "http://localhost:8080",
 	socialProviders: {
 		github: {
 			clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -24,11 +27,13 @@ export const auth = betterAuth({
 		},
 	},
 	plugins: [nextCookies()],
-	advanced: {
-		crossSubDomainCookies: { enabled: true },
-		defaultCookieAttributes: {
-			sameSite: "lax",
-			secure: false,
-		},
-	},
+	// advanced: {
+	// 	crossSubDomainCookies: { enabled: true, domain: "localhost" },
+	// 	defaultCookieAttributes: {
+	// 		sameSite: "lax",
+	// 		secure: false,
+	// 		domain: "localhost",
+	// 	},
+	// 	useSecureCookies: false,
+	// },
 });

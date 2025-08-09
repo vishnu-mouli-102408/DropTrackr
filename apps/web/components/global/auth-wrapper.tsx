@@ -1,15 +1,26 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
 
-const AuthWrapper = async ({ children }: { children: React.ReactNode }) => {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+import { authClient } from "@/lib/auth-client";
+import { Spinner } from "@repo/ui/global/spinner";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-	if (!session) {
-		redirect("/sign-in");
-	}
+const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
+	const router = useRouter();
+	const { data: session, isPending } = authClient.useSession();
+
+	useEffect(() => {
+		if (!isPending && !session) {
+			router.replace("/sign-in");
+		}
+	}, [isPending, session, router]);
+
+	if (isPending || !session)
+		return (
+			<div className="flex h-screen w-screen items-center justify-center">
+				<Spinner variant="circle-filled" />
+			</div>
+		);
 
 	return <>{children}</>;
 };

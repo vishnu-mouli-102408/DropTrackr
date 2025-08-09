@@ -2,10 +2,10 @@
 
 import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/components/card";
 import { Button } from "@repo/ui/components/button";
-import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import Icons from "@repo/ui/global/icons";
 import { Spinner } from "@repo/ui/global/spinner";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignInPage() {
 	const [loading, setLoading] = useState<"github" | "google" | null>(null);
@@ -19,7 +19,7 @@ export default function SignInPage() {
 		try {
 			await authClient.signIn.social({
 				provider,
-				callbackURL: "/dashboard",
+				// callbackURL: "/dashboard",
 			});
 		} catch (e) {
 			console.log("ERROR IN SIGN IN", e);

@@ -1,7 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import { fromNodeHeaders } from "better-auth/node";
-import { auth } from "@repo/common/server-auth";
 import type { Session, User } from "@repo/db";
+import { logger } from "@repo/common";
+import { auth } from "./src/lib/auth";
 
 declare global {
 	namespace Express {
@@ -25,7 +26,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
 		req.user = session.user as User;
 		next();
 	} catch (err) {
-		console.error("Auth validation failed:", err);
+		logger.error(err, "Auth validation failed:");
 		res.status(500).json({ message: "Failed to validate session", status: 500 });
 	}
 }
