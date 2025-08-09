@@ -6,8 +6,8 @@ import { Header } from "@/components/header";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-	title: "Image Generator",
-	description: "Image Generator",
+	title: "DropTrackr – Instant File Drops",
+	description: "DropTrackr – Instant File Drops",
 };
 
 export default function RootLayout({

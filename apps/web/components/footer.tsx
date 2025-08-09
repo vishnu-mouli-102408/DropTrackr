@@ -78,7 +78,7 @@ export default function Footer() {
 				</div>
 				<span className="text-muted-foreground block text-center text-sm">
 					{" "}
-					© {new Date().getFullYear()} Image Craft, All rights reserved
+					© {new Date().getFullYear()} DropTrackr, All rights reserved
 				</span>
 			</div>
 		</footer>
