@@ -19,7 +19,7 @@ export default function SignInPage() {
 		try {
 			await authClient.signIn.social({
 				provider,
-				// callbackURL: "/dashboard",
+				callbackURL: "/dashboard",
 			});
 		} catch (e) {
 			console.log("ERROR IN SIGN IN", e);
