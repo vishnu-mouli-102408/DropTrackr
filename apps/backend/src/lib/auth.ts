@@ -6,8 +6,6 @@ import { logger } from "@repo/common";
 
 dotenv.config();
 
-logger.info({ secret: process.env.BETTER_AUTH_SECRET }, "BETTER_AUTH_SECRET");
-
 export const auth = betterAuth({
 	secret: process.env.BETTER_AUTH_SECRET as string,
 	trustedOrigins: ["http://localhost:3000", "http://localhost:8080"],

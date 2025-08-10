@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { fromNodeHeaders } from "better-auth/node";
 import type { Session, User } from "@repo/db";
 import { logger } from "@repo/common";
-import { auth } from "./src/lib/auth";
+import { auth } from "../lib/auth";
 
 declare global {
 	namespace Express {
