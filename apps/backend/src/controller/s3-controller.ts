@@ -1,7 +1,8 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	BAD_REQUEST,
 	BAD_REQUEST_MESSAGE,
+	deleteFileRequestSchema,
 	generateUUID,
 	INTERNAL_SERVER_ERROR,
 	INTERNAL_SERVER_ERROR_MESSAGE,
@@ -38,6 +39,31 @@ export async function generatePresignedUrl(req: Request, res: Response) {
 		});
 
 		return res.status(OK).json({ data: { presignedUrl, uniqueKey }, message: OK_MESSAGE, success: true });
+	} catch (error) {
+		logger.error(error, "Error generating presigned url");
+		res.status(INTERNAL_SERVER_ERROR).json({ message: INTERNAL_SERVER_ERROR_MESSAGE, success: false, data: null });
+	}
+}
+
+export async function deleteFile(req: Request, res: Response) {
+	try {
+		const body = req.body;
+		const parsedBody = deleteFileRequestSchema.safeParse(body);
+
+		if (!parsedBody?.success) {
+			return res.status(BAD_REQUEST).json({ message: BAD_REQUEST_MESSAGE, success: false, data: null });
+		}
+
+		const { key } = parsedBody.data;
+
+		const command = new DeleteObjectCommand({
+			Bucket: process.env.S3_BUCKET_NAME,
+			Key: key,
+		});
+
+		await S3.send(command);
+
+		return res.status(OK).json({ message: OK_MESSAGE, success: true, data: null });
 	} catch (error) {
 		logger.error(error, "Error generating presigned url");
 		res.status(INTERNAL_SERVER_ERROR).json({ message: INTERNAL_SERVER_ERROR_MESSAGE, success: false, data: null });

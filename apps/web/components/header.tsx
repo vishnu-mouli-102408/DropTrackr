@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { Button } from "@repo/ui/components/button";
 import Icons from "@repo/ui/global/icons";
 import { motion } from "motion/react";
+import { authClient } from "@/lib/auth-client";
 
 const menuItems = [
 	{ name: "Home", href: "/" },
@@ -15,6 +16,8 @@ const menuItems = [
 export const Header = () => {
 	const [menuState, setMenuState] = React.useState(false);
 	const [isScrolled, setIsScrolled] = React.useState(false);
+
+	const { data: session, isPending } = authClient.useSession();
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -88,11 +91,19 @@ export const Header = () => {
 								</ul>
 							</div>
 							<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-								<Button asChild size="sm">
-									<Link href="/sign-in">
-										<span>Sign In</span>
-									</Link>
-								</Button>
+								{isPending || !session?.user?.email ? (
+									<Button asChild size="sm">
+										<Link href="/sign-in">
+											<span>Sign In</span>
+										</Link>
+									</Button>
+								) : (
+									<Button asChild size="sm">
+										<Link href="/dashboard">
+											<span>Dashboard</span>
+										</Link>
+									</Button>
+								)}
 							</div>
 						</div>
 					</div>

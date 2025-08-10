@@ -5,3 +5,7 @@ export const uploadRequestSchema = z.object({
 	contentType: z.string(),
 	size: z.number(),
 });
+
+export const deleteFileRequestSchema = z.object({
+	key: z.string(),
+});
