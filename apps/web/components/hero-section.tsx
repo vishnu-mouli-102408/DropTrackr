@@ -10,7 +10,7 @@ export default function HeroSection() {
 					<div className="pb-24 pt-16 md:pb-28 lg:pb-44 lg:pt-40">
 						<div className="relative mx-auto flex max-w-6xl flex-col px-6 lg:block">
 							<div className="mx-auto text-center lg:ml-0 lg:w-1/2 lg:text-left">
-								<h1 className="mt-8 max-w-2xl text-balance text-5xl font-medium tracking-tight md:text-6xl lg:mt-12 xl:text-7xl">
+								<h1 className="mt-8 max-w-3xl text-balance text-5xl font-medium tracking-tight md:text-6xl lg:mt-12 xl:text-7xl">
 									Share Files. Track Every Click.
 									<span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
 										Instant File Drops.
